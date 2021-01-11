@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
+import axios from 'axios'
 import { Typography, Button, Form, Input } from 'antd'
 import FileUpload from '../../utils/FileUpload'
+import { useHistory } from 'react-router-dom'
 
 // const { Title } = Typography
 const { TextArea } = Input
@@ -15,12 +17,14 @@ const Continents = [
   { key: 7, value: 'Antarctica' },
 ]
 
-function UploadProductPage() {
+function UploadProductPage({ user }) {
   const [Title, setTitle] = useState('')
   const [Description, setDescription] = useState('')
   const [Price, setPrice] = useState(0)
   const [Continent, setContinent] = useState(1)
   const [Images, setImages] = useState([])
+
+  const history = useHistory()
 
   const titleChangeHandler = e => {
     setTitle(e.currentTarget.value)
@@ -35,14 +39,43 @@ function UploadProductPage() {
     setContinent(e.currentTarget.value)
   }
 
+  const updateImages = newImages => {
+    setImages(newImages)
+  }
+
+  const submitHandler = e => {
+    e.preventDefault()
+    if (!Title || !Description || !Price || !Continent || !Images) {
+      return alert('빈칸을 빠짐없이 작성해주세요')
+    }
+    //서버에 채운 값들을 request로 보낸다
+    const body = {
+      // 로그인 된 사람의 ID
+      writer: user.userData._id,
+      title: Title,
+      description: Description,
+      price: Price,
+      continents: Continent,
+      images: Images,
+    }
+    axios.post('/api/product', body).then(response => {
+      if (response.data.success) {
+        alert('상품 업로드에 성공 했습니다')
+        history.push('/')
+      } else {
+        alert('상품 업로드에 실패 했습니다')
+      }
+    })
+  }
+
   return (
     <div style={{ maxWidth: '700px', margin: '2rem auto' }}>
       <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
         <h2 level={2}>여행 상품 업로드</h2>
       </div>
 
-      <Form>
-        <FileUpload />
+      <Form onSubmit={submitHandler}>
+        <FileUpload refreshFunction={updateImages} />
         <br />
         <br />
         <label>이름</label>
@@ -66,7 +99,9 @@ function UploadProductPage() {
         </select>
         <br />
         <br />
-        <Button>확인</Button>
+        <Button type="submit" onClick={submitHandler}>
+          확인
+        </Button>
       </Form>
     </div>
   )
