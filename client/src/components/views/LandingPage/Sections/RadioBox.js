@@ -21,7 +21,7 @@ function RadioBox({ list, handleFilters }) {
 
   return (
     <React.Fragment>
-      <Collapse defaultActiveKey={['1']}>
+      <Collapse defaultActiveKey={['0']}>
         <Panel header="Price" key="1">
           <Radio.Group onChange={handleChange} value={Value}>
             {renderRadioBox()}

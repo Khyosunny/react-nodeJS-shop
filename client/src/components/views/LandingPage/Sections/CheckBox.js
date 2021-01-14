@@ -39,8 +39,8 @@ function CheckBox({ list, handleFilters }) {
 
   return (
     <React.Fragment>
-      <Collapse defaultActiveKey={['1']}>
-        <Panel header="Continent" key="1">
+      <Collapse defaultActiveKey={['0']}>
+        <Panel header="Continents" key="1">
           {renderCheckBoxLists()}
         </Panel>
       </Collapse>
