@@ -3,14 +3,16 @@
 .menu {
   padding: 0 20px;
   border-bottom: solid 1px #e8e8e8;
-  overflow: auto;
+  /* overflow: auto; */
   box-shadow: 0 0 30px #f3f1f1;
   background-color: white;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .menu__logo {
   width: 150px;
-  float: left;
 }
 
 .menu__logo a {
@@ -19,8 +21,10 @@
   padding: 19px 20px;
 }
 
-.menu__container .ant-menu-item {
-  padding: 0px 5px;
+.menu__container {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
 }
 
 .menu__container .ant-menu-submenu-title {
@@ -34,14 +38,6 @@
 
 .menu__container .ant-menu-horizontal {
   border-bottom: none;
-}
-
-.menu__container .menu_left {
-  float: left;
-}
-
-.menu__container .menu_rigth {
-  float: right;
 }
 
 .menu__mobile-button {
