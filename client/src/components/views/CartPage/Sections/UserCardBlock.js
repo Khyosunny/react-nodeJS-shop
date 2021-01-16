@@ -2,8 +2,7 @@ import React from 'react'
 import ImageSlider from '../../../utils/ImageSlider'
 import './UserCardBlock.css'
 
-function UserCardBlock({ products }) {
-  console.log(products)
+function UserCardBlock({ products, removeItem }) {
   const renderCartImage = images => {
     if (ImageSlider.length > 0) {
       let image = images[0]
@@ -25,7 +24,13 @@ function UserCardBlock({ products }) {
         <td>{product.quantity} EA</td>
         <td>$ {product.price}</td>
         <td>
-          <button>Remove</button>
+          <button
+            onClick={() => {
+              removeItem(product._id)
+            }}
+          >
+            Remove
+          </button>
         </td>
       </tr>
     ))
